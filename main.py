@@ -17,6 +17,11 @@ class FlowerData(BaseModel):
     petal_length: float
     petal_width: float
 
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the Iris ML API! Go to /docs to test it out."}
+
+
 #Create the prediction end point
 @app.post("/predict")
 def predict_flower(data:FlowerData):
