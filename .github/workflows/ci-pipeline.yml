@@ -1,0 +1,34 @@
+name: MLOps CI Pipeline
+
+# 1. When should this robot wake up? (Every time you push code to 'main')
+on:
+  push:
+    branches: [ "main", "master" ]
+
+# 2. What should the robot do?
+jobs:
+  build-and-test:
+    # Give the robot a fresh Ubuntu Linux computer
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step A: Download your code from GitHub onto the robot
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    # Step B: Install Python
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    # Step C: Train the model (This proves your ML math works!)
+    - name: Train the AI Model
+      run: |
+        pip install scikit-learn pandas joblib mlflow
+        python train.py
+
+    # Step D: Build the Docker container (This proves your API works!)
+    - name: Build Docker Image
+      run: |
+        docker build -t iris-api .
