@@ -1,4 +1,4 @@
 __pycache__/
 mlruns/
-*.pkl
+#*.pkl
 mlflow.db
